@@ -14,8 +14,9 @@ class Phantasma final : private NonInstanceable, private NonCopyable<Phantasma> 
 		
 		static std::unique_ptr<Phantasma> MakeUnique();
 		
+		void Call() const;
+		
+		// local_ptr
 		static std::size_t local_size();
 		void local_init();
-		
-		void Call() const;
 };
