@@ -42,7 +42,8 @@ void testLifePhantasmaLocal(std::size_t nTest)
 
 
 
-void testLife(std::size_t nTest, int nRepeat){
+void testLife(std::size_t nTest, int nRepeat)
+{
 	printf("\n\n== testLife\n");
 	
 	{	// 
@@ -104,7 +105,8 @@ void testCallPhantasmaLocal(std::size_t nTest)
 
 
 
-void testCall(std::size_t nTest, int nRepeat){
+void testCall(std::size_t nTest, int nRepeat)
+{
 	printf("\n\n== testCall\n");
 	
 	{	// 
