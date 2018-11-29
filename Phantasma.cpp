@@ -45,7 +45,8 @@ Phantasma::~Phantasma() noexcept					{ Cast(this)->~PhantasmaImpl(); }
 
 std::unique_ptr<Phantasma> Phantasma::MakeUnique()	{ return std::unique_ptr<Phantasma>(Cast(new PhantasmaImpl())); }
 
+void Phantasma::Call() const						{ return Cast(this)->Call(); }
+
+// local_ptr
 std::size_t Phantasma::local_size()					{ return sizeof(PhantasmaImpl); }
 void Phantasma::local_init()						{ new(this) PhantasmaImpl(); }
-
-void Phantasma::Call() const						{ return Cast(this)->Call(); }
