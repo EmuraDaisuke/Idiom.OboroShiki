@@ -76,7 +76,7 @@ clangの"Pimpl"では、「メソッドの呼び出し」に多少コストが�
 
 "Phantasma"なclassでlocal_ptrを使うには、以下のメソッドが必要となります。  
 ~~~
-static std::size_t local_size();    // 実体のサイズを返す
+static std::size_t local_size();    // 実体classのサイズを返す
 void local_init();                  // コンストラクタのラッパー
 ~~~
 
