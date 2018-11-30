@@ -6,11 +6,11 @@
 
 
 struct PimplImpl {
-	~PimplImpl() noexcept;
-	
-	PimplImpl();
-	
-	void Call() const;
+    ~PimplImpl() noexcept;
+    
+    PimplImpl();
+    
+    void Call() const;
 };
 
 
@@ -37,8 +37,8 @@ void PimplImpl::Call() const
 
 // 
 
-Pimpl::~Pimpl() noexcept	{}
+Pimpl::~Pimpl() noexcept    {}
 
-Pimpl::Pimpl()				:mpImpl(std::make_unique<PimplImpl>()){}
+Pimpl::Pimpl()              :mpImpl(std::make_unique<PimplImpl>()){}
 
-void Pimpl::Call() const	{ return mpImpl->Call(); }
+void Pimpl::Call() const    { return mpImpl->Call(); }
