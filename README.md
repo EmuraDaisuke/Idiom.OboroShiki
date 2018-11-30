@@ -1,5 +1,5 @@
 # Phantasma.Idiom
-新しいイディオム"Phantasma"の提案と応用例です。  
+新しいイディオム"Phantasma"の提案です。  
 これは、"Pimpl"の進化版です。  
 
 以下の特徴があります。  
@@ -13,8 +13,9 @@
 
 # 概要
 "Phantasma"イディオムは、公開classと実体classの相互reinterpret_castが全てです。  
+
+疑似コード  
 ~~~
-// 疑似コード
 実体class* Cast(公開class* p){ return reinterpret_cast<実体class*>(p); }
 公開class* Cast(実体class* p){ return reinterpret_cast<公開class*>(p); }
 ~~~
