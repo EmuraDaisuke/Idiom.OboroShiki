@@ -16,8 +16,8 @@
 
 ## 疑似コード
 ~~~
-実体class* Cast(公開class* p){ return reinterpret_cast<実体class*>(p); }
-公開class* Cast(実体class* p){ return reinterpret_cast<公開class*>(p); }
+実体class* Cast(公開class* p){ return reinterpret_cast<実体class*>(p); }    // 内向きに使うcast
+公開class* Cast(実体class* p){ return reinterpret_cast<公開class*>(p); }    // 外向きに使うcast
 ~~~
 
 <br>
