@@ -14,7 +14,7 @@
 # 概要
 "Phantasma"イディオムは、公開classと実体classの相互reinterpret_castが全てです。  
 
-疑似コード  
+## 疑似コード
 ~~~
 実体class* Cast(公開class* p){ return reinterpret_cast<実体class*>(p); }
 公開class* Cast(実体class* p){ return reinterpret_cast<公開class*>(p); }
@@ -106,7 +106,7 @@ static std::size_t local_size();    // 実体classのサイズを返す
 void local_init([引数...]);         // コンストラクタのラッパー
 ~~~
 
-インスタンスの生成  
+インスタンスを生成します。  
 ~~~
 auto p = make_local(型[, 引数...]);
 ~~~
