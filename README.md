@@ -99,7 +99,7 @@ TestG++.exe
 ## 使い方
 公開classに以下のメソッドを追加します。  
 ~~~
-static std::size_t local_size();    // 実装classのサイズを返す
+static std::size_t local_size();    // 実装classの実体サイズを返す
 void local_init([引数...]);         // コンストラクタのラッパー
 ~~~
 
