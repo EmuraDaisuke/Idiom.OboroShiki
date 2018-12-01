@@ -13,7 +13,7 @@
 # 概要
 "Phantasma"イディオムは、公開classと実装classの相互reinterpret_castが全てです。  
 
-## 疑似コード
+### 疑似コード
 ~~~
 実装class* Cast(公開class* p){ return reinterpret_cast<実装class*>(p); }    // 内向きに使うcast
 公開class* Cast(実装class* p){ return reinterpret_cast<公開class*>(p); }    // 外向きに使うcast
