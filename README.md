@@ -62,28 +62,26 @@ TestG++.exe
 # ベンチマーク
 複数メモリースキームの運用例として、unique_ptrとlocal_ptr(後述)を比較してみました。  
 単位は秒で、数値が低いほど高速です。  
-* 「生成と破棄」を「1,000,000」回でサンプリング
-* 「メソッドの呼び出し」を「100,000,000」回でサンプリング
 
 ## **Msvc**
-||Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
+|100,000,000回|Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
 |-:|-:|-:|-:|
-|生成と破棄|0.04009438|0.03977647|**0.00547609**|
+|生成と破棄|3.77094619|3.77549581|**0.60779183**|
 |メソッドの呼び出し|0.09252870|0.09257201|0.09184603|
 
 ## **clang++**
-||Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
+|100,000,000回|Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
 |-:|-:|-:|-:|
-|生成と破棄|0.04081490|0.03976941|**0.00525088**|
+|生成と破棄|3.87227691|3.85601771|**0.51126608**|
 |メソッドの呼び出し|0.11360534|0.09064752|0.09042264|
 
 ## **g++**
-||Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
+|100,000,000回|Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
 |-:|-:|-:|-:|
-|生成と破棄|0.04010625|0.04020441|**0.00469173**|
+|生成と破棄|3.87667382|3.89724941|**0.46185907**|
 |メソッドの呼び出し|0.09052177|0.09079541|0.09055738|
 
-### 所感
+## 所感
 目立った環境差はなく、安定した結果となりました。  
 
 <br>

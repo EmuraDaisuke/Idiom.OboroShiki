@@ -139,7 +139,7 @@ void testCall(std::size_t nTest, int nRepeat)
 
 int main(int argc, char* argv[])
 {
-    testLife(1000000, 4);
+    testLife(100000000, 4);
     testCall(100000000, 4);
     return 0;
 }
