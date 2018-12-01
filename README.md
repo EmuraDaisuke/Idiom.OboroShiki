@@ -11,12 +11,12 @@
 <br>
 
 # 概要
-"Phantasma"イディオムは、公開classと実体classの相互reinterpret_castが全てです。  
+"Phantasma"イディオムは、公開classと実装classの相互reinterpret_castが全てです。  
 
 ## 疑似コード
 ~~~
-実体class* Cast(公開class* p){ return reinterpret_cast<実体class*>(p); }    // 内向きに使うcast
-公開class* Cast(実体class* p){ return reinterpret_cast<公開class*>(p); }    // 外向きに使うcast
+実装class* Cast(公開class* p){ return reinterpret_cast<実装class*>(p); }    // 内向きに使うcast
+公開class* Cast(実装class* p){ return reinterpret_cast<公開class*>(p); }    // 外向きに使うcast
 ~~~
 
 <br>
@@ -101,7 +101,7 @@ clang++の"Pimpl"で、「メソッドの呼び出し」に多少コストが掛
 ## 使い方
 公開classに以下のメソッドを追加します。  
 ~~~
-static std::size_t local_size();    // 実体classのサイズを返す
+static std::size_t local_size();    // 実装classのサイズを返す
 void local_init([引数...]);         // コンストラクタのラッパー
 ~~~
 
