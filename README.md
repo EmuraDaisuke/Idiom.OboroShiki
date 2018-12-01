@@ -43,19 +43,19 @@ Target: x86_64-w64-mingw32
 # ビルド＆テスト
 ## **Msvc**
 ~~~
-cl Main.cpp Pimpl.cpp Phantasma.cpp -Ox -F0x10000000 -EHsc -Fe:TestMsvc.exe
+cl Main.cpp Pimpl.cpp Phantasma.cpp -Ox -EHsc -Fe:TestMsvc.exe
 TestMsvc.exe
 ~~~
 
 ## **clang++**
 ~~~
-clang++ Main.cpp Pimpl.cpp Phantasma.cpp -O3 -Wl,--stack,0x10000000 -o TestClang++.exe
+clang++ Main.cpp Pimpl.cpp Phantasma.cpp -O3 -o TestClang++.exe
 TestClang++.exe
 ~~~
 
 ## **g++**
 ~~~
-g++ Main.cpp Pimpl.cpp Phantasma.cpp -O3 -Wl,--stack,0x10000000 -o TestG++.exe
+g++ Main.cpp Pimpl.cpp Phantasma.cpp -O3 -o TestG++.exe
 TestG++.exe
 ~~~
 
@@ -70,23 +70,23 @@ TestG++.exe
 ## **Msvc**
 ||Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
 |-:|-:|-:|-:|
-|生成と破棄|0.04009438|0.03977647|**0.00504075**|
+|生成と破棄|0.04009438|0.03977647|**0.00547609**|
 |メソッドの呼び出し|0.09252870|0.09257201|0.09184603|
 
 ## **clang++**
 ||Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
 |-:|-:|-:|-:|
-|生成と破棄|0.04081490|0.03976941|**0.00420185**|
+|生成と破棄|0.04081490|0.03976941|**0.00525088**|
 |メソッドの呼び出し|0.11360534|0.09064752|0.09042264|
 
 ## **g++**
 ||Pimpl.unique_ptr|Phantasma.unique_ptr|Phantasma.local_ptr|
 |-:|-:|-:|-:|
-|生成と破棄|0.04010625|0.04020441|**0.00414539**|
+|生成と破棄|0.04010625|0.04020441|**0.00469173**|
 |メソッドの呼び出し|0.09052177|0.09079541|0.09055738|
 
-## 所感
-clang++の"Pimpl"で、「メソッドの呼び出し」に多少コストが掛かっているように見えますが、どの環境もほぼ安定しています。  
+### 所感
+目立った環境差はなく、安定した結果となりました。  
 
 <br>
 
@@ -96,7 +96,7 @@ clang++の"Pimpl"で、「メソッドの呼び出し」に多少コストが掛
 * unique_ptrと同様、唯一の所有権を持つ
 * ブレースを抜ける際にインスタンスを破棄する
 * メソッドを抜ける際にスタックを開放する
-* **安易にループ内で使うと、大量にスタックを消費するので注意が必要**
+* **ループ内で使うと、スタックを大量に消費する可能性があるので、注意が必要**
 
 ## 使い方
 公開classに以下のメソッドを追加します。  
@@ -110,12 +110,30 @@ void local_init([引数...]);         // コンストラクタのラッパー
 auto p = make_local(型[, 引数...]);
 ~~~
 
+## スタックオーバーフローへの対応
+### 対策なし（ループ回数が増えると動作しない）
+~~~
+for (int n = 回数; n; --n){
+  auto p = make_local(型);
+}
+~~~
+
+### 対策済み（ループ回数が増えても問題ない）
+~~~
+for (int n = 回数; n; --n){
+  []{
+    auto p = make_local(型);
+  }();
+}
+~~~
+ベンチマークの「生成と破棄」は、「対策済み」で行っています。  
+
 <br>
 
 # 余談
 如何だったでしょうか？  
 
-通常用途では、手間ばかり掛かって、得られるものが「僅かばかりの体裁の良さ」というのが泣けます。  
+単一メモリースキームでの運用は、手間が掛かる割に「僅かばかりの体裁の良さ」しか得られない悲しみ。  
 reinterpret_castに拒絶反応を示す方もいらっしゃるでしょう。  
 
-正直、あまり使いどころのないイディオムですが、組み込み用途であれば、活用の機会があるかもしれません。  
+正直、評価の難しいイディオムだと思いますが、組み込み用途であれば、活用の機会があるかもしれません。  

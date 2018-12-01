@@ -36,7 +36,9 @@ void testLifePhantasmaLocal(std::size_t nTest)
 {
     Lapse l;
     for (int n = nTest; n; --n){
-        auto p = make_local(Phantasma);
+        []{
+            auto p = make_local(Phantasma);
+        }();
     }
 }
 
