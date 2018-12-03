@@ -1,6 +1,10 @@
 
 
 
+#if _OPENMP//[
+#include <omp.h>
+#endif//]
+
 #include "./Lapse.h"
 #include "./LocalPtr.h"
 #include "./Pimpl.h"
@@ -64,6 +68,83 @@ void testLife(int nTest, int nRepeat)
         printf("\n== Phantasma:local_ptr\n");
         for (auto n = nRepeat; n; --n){
             testLifePhantasmaLocal(nTest);
+        }
+    }
+}
+
+
+
+// 
+
+void testOpmpPimpl(int nTest)
+{
+    #if _OPENMP//[
+    Lapse l;
+    #pragma omp parallel for
+    for (auto n = nTest; n > 0; --n){
+        Pimpl v;
+    }
+    #else//][
+    printf("n/a\n");
+    #endif//]
+}
+
+
+
+void testOpmpPhantasmaUnique(int nTest)
+{
+    #if _OPENMP//[
+    Lapse l;
+    #pragma omp parallel for
+    for (auto n = nTest; n > 0; --n){
+        auto p = Phantasma::MakeUnique();
+    }
+    #else//][
+    printf("n/a\n");
+    #endif//]
+}
+
+
+
+void testOpmpPhantasmaLocal(int nTest)
+{
+    #if _OPENMP//[
+    Lapse l;
+    #pragma omp parallel for
+    for (auto n = nTest; n > 0; --n){
+        []{
+            auto p = make_local(Phantasma);
+        }();
+    }
+    #else//][
+    printf("n/a\n");
+    #endif//]
+}
+
+
+
+void testOpmp(int nTest, int nRepeat)
+{
+    printf("\n\n== testOpmp\n");
+    
+    {   // 
+        printf("\n== Pimpl\n");
+        for (auto n = nRepeat; n; --n){
+            testOpmpPimpl(nTest);
+        }
+    }
+    
+    {   // 
+        printf("\n== Phantasma:unique_ptr\n");
+        for (auto n = nRepeat; n; --n){
+            testOpmpPhantasmaUnique(nTest);
+        }
+    }
+    
+    {   // 
+        printf("\n== Phantasma:local_ptr\n");
+        for (auto n = nRepeat; n; --n){
+            testOpmpPhantasmaLocal(nTest);
         }
     }
 }
@@ -138,6 +219,7 @@ void testCall(int nTest, int nRepeat)
 int main(int argc, char* argv[])
 {
     testLife(100000000, 4);
+    testOpmp(100000000, 4);
     testCall(100000000, 4);
     return 0;
 }
