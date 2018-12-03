@@ -1,8 +1,6 @@
 
 
 
-#include <random>
-
 #include "./Lapse.h"
 #include "./LocalPtr.h"
 #include "./Pimpl.h"
@@ -12,30 +10,30 @@
 
 // 
 
-void testLifePimpl(std::size_t nTest)
+void testLifePimpl(int nTest)
 {
     Lapse l;
-    for (int n = nTest; n; --n){
+    for (auto n = nTest; n; --n){
         Pimpl v;
     }
 }
 
 
 
-void testLifePhantasmaUnique(std::size_t nTest)
+void testLifePhantasmaUnique(int nTest)
 {
     Lapse l;
-    for (int n = nTest; n; --n){
+    for (auto n = nTest; n; --n){
         auto p = Phantasma::MakeUnique();
     }
 }
 
 
 
-void testLifePhantasmaLocal(std::size_t nTest)
+void testLifePhantasmaLocal(int nTest)
 {
     Lapse l;
-    for (int n = nTest; n; --n){
+    for (auto n = nTest; n; --n){
         []{
             auto p = make_local(Phantasma);
         }();
@@ -44,27 +42,27 @@ void testLifePhantasmaLocal(std::size_t nTest)
 
 
 
-void testLife(std::size_t nTest, int nRepeat)
+void testLife(int nTest, int nRepeat)
 {
     printf("\n\n== testLife\n");
     
     {   // 
         printf("\n== Pimpl\n");
-        for (int n = nRepeat; n; --n){
+        for (auto n = nRepeat; n; --n){
             testLifePimpl(nTest);
         }
     }
     
     {   // 
         printf("\n== Phantasma:unique_ptr\n");
-        for (int n = nRepeat; n; --n){
+        for (auto n = nRepeat; n; --n){
             testLifePhantasmaUnique(nTest);
         }
     }
     
     {   // 
         printf("\n== Phantasma:local_ptr\n");
-        for (int n = nRepeat; n; --n){
+        for (auto n = nRepeat; n; --n){
             testLifePhantasmaLocal(nTest);
         }
     }
@@ -74,60 +72,60 @@ void testLife(std::size_t nTest, int nRepeat)
 
 // 
 
-void testCallPimpl(std::size_t nTest)
+void testCallPimpl(int nTest)
 {
     Pimpl v;
     Lapse l;
-    for (int n = nTest; n; --n){
+    for (auto n = nTest; n; --n){
         v.Call();
     }
 }
 
 
 
-void testCallPhantasmaUnique(std::size_t nTest)
+void testCallPhantasmaUnique(int nTest)
 {
     auto p = Phantasma::MakeUnique();
     Lapse l;
-    for (int n = nTest; n; --n){
+    for (auto n = nTest; n; --n){
         p->Call();
     }
 }
 
 
 
-void testCallPhantasmaLocal(std::size_t nTest)
+void testCallPhantasmaLocal(int nTest)
 {
     auto p = make_local(Phantasma);
     Lapse l;
-    for (int n = nTest; n; --n){
+    for (auto n = nTest; n; --n){
         p->Call();
     }
 }
 
 
 
-void testCall(std::size_t nTest, int nRepeat)
+void testCall(int nTest, int nRepeat)
 {
     printf("\n\n== testCall\n");
     
     {   // 
         printf("\n== Pimpl\n");
-        for (int n = nRepeat; n; --n){
+        for (auto n = nRepeat; n; --n){
             testCallPimpl(nTest);
         }
     }
     
     {   // 
         printf("\n== Phantasma:unique_ptr\n");
-        for (int n = nRepeat; n; --n){
+        for (auto n = nRepeat; n; --n){
             testCallPhantasmaUnique(nTest);
         }
     }
     
     {   // 
         printf("\n== Phantasma:local_ptr\n");
-        for (int n = nRepeat; n; --n){
+        for (auto n = nRepeat; n; --n){
             testCallPhantasmaLocal(nTest);
         }
     }
