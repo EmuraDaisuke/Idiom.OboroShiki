@@ -8,7 +8,7 @@
 #include "./Lapse.h"
 #include "./LocalPtr.h"
 #include "./Pimpl.h"
-#include "./Phantasma.h"
+#include "./OboroShiki.h"
 
 
 
@@ -24,22 +24,22 @@ void testLifePimpl(int nTest)
 
 
 
-void testLifePhantasmaUnique(int nTest)
+void testLifeOboroShikiUnique(int nTest)
 {
     Lapse l;
     for (auto n = nTest; n; --n){
-        auto p = Phantasma::MakeUnique();
+        auto p = OboroShiki::MakeUnique();
     }
 }
 
 
 
-void testLifePhantasmaLocal(int nTest)
+void testLifeOboroShikiLocal(int nTest)
 {
     Lapse l;
     for (auto n = nTest; n; --n){
         []{
-            auto p = make_local(Phantasma);
+            auto p = make_local(OboroShiki);
         }();
     }
 }
@@ -58,16 +58,16 @@ void testLife(int nTest, int nRepeat)
     }
     
     {   // 
-        printf("\n== Phantasma:unique_ptr\n");
+        printf("\n== OboroShiki:unique_ptr\n");
         for (auto n = nRepeat; n; --n){
-            testLifePhantasmaUnique(nTest);
+            testLifeOboroShikiUnique(nTest);
         }
     }
     
     {   // 
-        printf("\n== Phantasma:local_ptr\n");
+        printf("\n== OboroShiki:local_ptr\n");
         for (auto n = nRepeat; n; --n){
-            testLifePhantasmaLocal(nTest);
+            testLifeOboroShikiLocal(nTest);
         }
     }
 }
@@ -91,13 +91,13 @@ void testOpmpPimpl(int nTest)
 
 
 
-void testOpmpPhantasmaUnique(int nTest)
+void testOpmpOboroShikiUnique(int nTest)
 {
     #if _OPENMP//[
     Lapse l;
     #pragma omp parallel for
     for (auto n = nTest; n > 0; --n){
-        auto p = Phantasma::MakeUnique();
+        auto p = OboroShiki::MakeUnique();
     }
     #else//][
     printf("n/a\n");
@@ -106,14 +106,14 @@ void testOpmpPhantasmaUnique(int nTest)
 
 
 
-void testOpmpPhantasmaLocal(int nTest)
+void testOpmpOboroShikiLocal(int nTest)
 {
     #if _OPENMP//[
     Lapse l;
     #pragma omp parallel for
     for (auto n = nTest; n > 0; --n){
         []{
-            auto p = make_local(Phantasma);
+            auto p = make_local(OboroShiki);
         }();
     }
     #else//][
@@ -135,16 +135,16 @@ void testOpmp(int nTest, int nRepeat)
     }
     
     {   // 
-        printf("\n== Phantasma:unique_ptr\n");
+        printf("\n== OboroShiki:unique_ptr\n");
         for (auto n = nRepeat; n; --n){
-            testOpmpPhantasmaUnique(nTest);
+            testOpmpOboroShikiUnique(nTest);
         }
     }
     
     {   // 
-        printf("\n== Phantasma:local_ptr\n");
+        printf("\n== OboroShiki:local_ptr\n");
         for (auto n = nRepeat; n; --n){
-            testOpmpPhantasmaLocal(nTest);
+            testOpmpOboroShikiLocal(nTest);
         }
     }
 }
@@ -164,9 +164,9 @@ void testCallPimpl(int nTest)
 
 
 
-void testCallPhantasmaUnique(int nTest)
+void testCallOboroShikiUnique(int nTest)
 {
-    auto p = Phantasma::MakeUnique();
+    auto p = OboroShiki::MakeUnique();
     Lapse l;
     for (auto n = nTest; n; --n){
         p->Call();
@@ -175,9 +175,9 @@ void testCallPhantasmaUnique(int nTest)
 
 
 
-void testCallPhantasmaLocal(int nTest)
+void testCallOboroShikiLocal(int nTest)
 {
-    auto p = make_local(Phantasma);
+    auto p = make_local(OboroShiki);
     Lapse l;
     for (auto n = nTest; n; --n){
         p->Call();
@@ -198,16 +198,16 @@ void testCall(int nTest, int nRepeat)
     }
     
     {   // 
-        printf("\n== Phantasma:unique_ptr\n");
+        printf("\n== OboroShiki:unique_ptr\n");
         for (auto n = nRepeat; n; --n){
-            testCallPhantasmaUnique(nTest);
+            testCallOboroShikiUnique(nTest);
         }
     }
     
     {   // 
-        printf("\n== Phantasma:local_ptr\n");
+        printf("\n== OboroShiki:local_ptr\n");
         for (auto n = nRepeat; n; --n){
-            testCallPhantasmaLocal(nTest);
+            testCallOboroShikiLocal(nTest);
         }
     }
 }

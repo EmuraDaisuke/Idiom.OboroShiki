@@ -8,11 +8,11 @@
 
 
 
-class Phantasma final : private NonInstanceable, private NonCopyable<Phantasma> {
+class OboroShiki final : private NonInstanceable, private NonCopyable<OboroShiki> {
     public:
-        ~Phantasma() noexcept;
+        ~OboroShiki() noexcept;
         
-        static std::unique_ptr<Phantasma> MakeUnique();
+        static std::unique_ptr<OboroShiki> MakeUnique();
         
         void Call() const;
         
