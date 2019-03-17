@@ -1,9 +1,9 @@
 # 朧式
-新しいイディオム"朧式"の提案です。  
-これは、"Pimpl"の進化版です。  
+新しいイディオム「朧式」の提案です。  
+これは、Pimplの進化版です。  
 
 以下の特徴があります。  
-* **"Pimpl"より、更に記述が面倒**
+* **Pimplより、更に記述が面倒**
 * 公開classから、private要素を完全に除去
 * 複数のメモリースキームに対応可能
   * ヒープを扱うunique_ptrやshared_ptrの他、**独自アロケータ用のポインタと併用が可能**
@@ -11,7 +11,7 @@
 <br>
 
 # 概要
-"朧式"は、公開classと実装classの相互reinterpret_castが全てです。  
+朧式は、公開classと実装classの相互reinterpret_castが全てです。  
 ~~~
 実装class* Cast(公開class* p){ return reinterpret_cast<実装class*>(p); }    // 内向きに使うcast
 公開class* Cast(実装class* p){ return reinterpret_cast<公開class*>(p); }    // 外向きに使うcast
@@ -115,7 +115,7 @@ TestG++.exe
 |メソッドの呼び出し|0.09052177|0.09079541|0.09055738|
 
 ## 所感
-同じunique_ptrであれば、"Pimpl"と"朧式"で、差がないことが分かります。  
+同じunique_ptrであれば、Pimplと朧式で、差がないことが分かります。  
 
 「生成と破棄」のNormalとOpenMPを比較すると、unique_ptrでは5～6倍の高速化に対し、local_ptrでは8～9倍と、差が開いていることが分かります。  
 これは、メモリーの確保と解放に排他制御が必要なunique_ptrに対し、local_ptrでは排他制御が不要な為、より効率良く並列化できていることを示しています。  
